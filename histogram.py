@@ -1,7 +1,8 @@
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
+# import pandas as pd
+
 
 def get_equalization_map(total_pixels,frequency_distribution,l):
     cumulative=[0]*l
@@ -9,6 +10,7 @@ def get_equalization_map(total_pixels,frequency_distribution,l):
     for i in range(1,l):
         cumulative[i]=frequency_distribution[i]+cumulative[i-1]
     equalization_map=[0]*l
+    
     for i in range(l):
         equalization_map[i]=int(cumulative[i]*(l-1)/total_pixels)
 
@@ -57,7 +59,7 @@ def plot_bar(distribution,name):
     plt.xlabel('Intensity Level')
     plt.ylabel('Frequency')
     fig = plt.gcf()
-    plt.show()
+    # plt.show()
     fig.savefig(name)
     
 
@@ -92,11 +94,12 @@ def create_image(equalization_map,name,final_name):
             p = img.getpixel((w,h))
             
             pixels[w,h] = (equalization_map[p])
+    img.show()
     img.save(final_name)
 
 def main():
     location="SampleImages/"
-    name="rose_gray.jpg"
+    name="dark.jpg"
     l=256
     
     img_linear, img_matrix = get_image_matrix(location+name,l)
@@ -110,7 +113,7 @@ def main():
 
     
 
-    new_img_matrix,img_linear,new_frequency_distribution = equalize(equalization_map ,img_matrix,img_linear,frequency_distribution,l)
+    new_img_matrix,new_img_linear,new_frequency_distribution = equalize(equalization_map ,img_matrix,img_linear,frequency_distribution,l)
 
     before_plt=plot_bar(frequency_distribution,name+"_before_equalization.png")
     after_plt=plot_bar(new_frequency_distribution,name+"_after_equalization.png")
