@@ -50,7 +50,7 @@ def plot_histogram(linear,name):
     plt.hist( linear, bins=20)
     plt.ylabel('No of times')
     fig = plt.gcf()
-    # plt.show()
+    plt.show()
     fig.savefig(name)
     
 def plot_bar(distribution,name):
@@ -59,7 +59,7 @@ def plot_bar(distribution,name):
     plt.xlabel('Intensity Level')
     plt.ylabel('Frequency')
     fig = plt.gcf()
-    # plt.show()
+    plt.show()
     fig.savefig(name)
     
 
